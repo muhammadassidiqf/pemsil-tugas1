@@ -36,6 +36,8 @@ if uploaded_file is not None:
     b = round(((n*sigmaxy) - (sigmax * sigmay)) /
                 ((n*sigmax2) - sigmax_2), 2)
     r = round(((n*sigmaxy - sigmax*sigmay)) / ((n*sigmax2 - sigmax_2)*(n*sigmay2 - sigmay_2))**0.5, 2)
+    kd = round((r**2)*100,2)
+    kd_sisa = round(100-kd,2)
 
     params={
         'sigma x' : st.sidebar.text('Sigma X :'+str(sigmax)),
@@ -57,6 +59,8 @@ if uploaded_file is not None:
     st.sidebar.text(str(Y_hasil))
     st.sidebar.subheader('r')
     st.sidebar.text(str(r))
+    st.sidebar.subheader('KD')
+    st.sidebar.text(str(kd))
 
     if((r >= 0) and (r < 0.2)):
         r2 = ("Kekuatan hubungan (r) : Sangat Lemah")
@@ -74,8 +78,10 @@ if uploaded_file is not None:
     else:
         skor = ("Nilai korelasi tersebut adalah positif yang menyatakan bahwa perbandingannya adalah searah")
 
+    kd_text = ("Besar kontribusi variable sertifikat terhadap poin adalah "+str(kd)+"% dan sisanya yaitu sebesar "+str(kd_sisa)+"% dipengaruhi oleh variabel selain sertifikat")
     st.text(str(r2))
     st.text(str(skor))
+    st.text(str(kd_text))
 else:
     st.write("Silahkan Pilih file csv yang akan digunakan !")
 
